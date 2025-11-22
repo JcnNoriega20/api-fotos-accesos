@@ -1,8 +1,12 @@
 {
   "name": "api-fotos-accesos",
   "version": "1.0.0",
-  "type": "module",
+  "description": "API para subir fotos de ESP32-CAM a GitHub via Vercel",
+  "main": "index.js",
+  "scripts": {
+    "start": "vercel dev"
+  },
   "dependencies": {
-    "@octokit/rest": "^20.0.0"
+    "@octokit/core": "^5.2.0"
   }
 }
