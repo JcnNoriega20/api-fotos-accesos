@@ -1,0 +1,8 @@
+{
+  "name": "api-fotos-accesos",
+  "version": "1.0.0",
+  "description": "API para subir fotos desde ESP32-CAM a GitHub usando Vercel",
+  "main": "api/upload.js",
+  "type": "module",
+  "license": "MIT"
+}
