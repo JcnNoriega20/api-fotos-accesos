@@ -1,8 +1,13 @@
-# API Fotos Accesos
+# API – Fotos accesos ESP32
 
-## Endpoint disponible
+Esta API recibe una imagen en Base64 desde una ESP32-CAM y la sube a un repositorio de GitHub.
 
-### POST /api/upload
+### Endpoint
+POST https://<tu-dominio>.vercel.app/api/upload
 
-Envía:
-
+### Body
+```json
+{
+  "id": "12345",
+  "base64": "<cadena base64>"
+}
