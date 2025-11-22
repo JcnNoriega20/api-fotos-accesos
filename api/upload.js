@@ -1,39 +1,33 @@
-import { initializeApp, cert } from "firebase-admin/app";
-import { getDatabase } from "firebase-admin/database";
-
-let app;
+import { Octokit } from "@octokit/rest";
 
 export default async function handler(req, res) {
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Método no permitido" });
-  }
-
   try {
-    if (!app) {
-      const firebaseKey = JSON.parse(process.env.FIREBASE_ADMIN_KEY);
-
-      app = initializeApp({
-        credential: cert(firebaseKey),
-        databaseURL: "https://proyectopas-d1fae-default-rtdb.firebaseio.com/"
-      });
+    if (req.method !== "POST") {
+      return res.status(405).json({ error: "Método no permitido" });
     }
 
-    const db = getDatabase();
+    const { id, base64 } = req.body;
 
-    const { id, foto } = req.body;
+    if (!id || !base64) {
+      return res.status(400).json({ error: "Faltan parámetros: id o base64" });
+    }
 
-    if (!id || !foto)
-      return res.status(400).json({ error: "Falta id o foto base64" });
-
-    await db.ref("foto_acceso/" + id).set({
-      foto: foto,
-      timestamp: Date.now()
+    // Inicializar Octokit con tu token de GitHub
+    const octokit = new Octokit({
+      auth: process.env.GITHUB_TOKEN
     });
 
-    return res.status(200).json({ status: "OK" });
+    const owner = "JcnNoriega20";
+    const repo = "fotos-accesos";
+    const path = `${id}.jpg`;
 
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ error: "Error interno", details: err.message });
-  }
-}
+    // Subir archivo al repositorio
+    const response = await octokit.repos.createOrUpdateFileContents({
+      owner,
+      repo,
+      path,
+      message: `Foto subida automáticamente: ${id}`,
+      content: base64,
+    });
+
+    const url = `https://raw.githubuserconten
