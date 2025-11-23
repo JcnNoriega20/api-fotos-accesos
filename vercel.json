@@ -1,0 +1,9 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "api/upload-chunk.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    { "src": "/api/upload-chunk", "dest": "/api/upload-chunk.js" }
+  ]
+}
