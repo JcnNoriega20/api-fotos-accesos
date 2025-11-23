@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "API para subir fotos de ESP32-CAM a GitHub via Vercel",
   "type": "module",
-  "main": "index.js",
   "scripts": {
     "start": "vercel dev"
   },
@@ -12,6 +11,6 @@
     "@octokit/rest": "^20.0.0"
   },
   "engines": {
-    "node": "18.x"
+    "node": "22.x"
   }
 }
